@@ -1,0 +1,62 @@
+{% extends 'testapp/base.html' %}
+{% block title %}
+Feedback form
+{% endblock %}
+{% block content %}
+<div class="jumbotron container">
+        <div class="alert-success">
+        {% if messages %}
+              {% for message in messages%}
+              {{message}}
+              {% endfor %}
+        {% endif %}
+  </div>
+        <h1>Rating Key:</h1>
+        <div class="row"><h5>1.</h5>Strongly disagree</div> 
+        <div class="row"><h5>2.</h5>Disagree</div>
+        <div class="row"><h5>3.</h5>Somewhat Agree</div>
+        <div class="row"><h5>4.</h5>Agree</div>
+        <div class="row"><h5>5.</h5>Strongly Agree</div>
+  </div>
+
+<div class="container-fluid">
+    <form method="POST" action="{% url 'staffform' %}">
+        {% csrf_token %}
+<table class='table table-dark table-boardered'>
+
+                  <tr>
+                        <th>Engg name and username</th>
+                        <th> Complain id </th>
+                        <th>point to be given</th>
+                        <th>Some message about him(maximux 500 words are allowed)</th>
+                  </tr>
+                  <tr>
+                        <td>
+                                <select name="enggdetails" class="btn btn-light">
+                                      {% for f_name in fname %}
+                                      <option value="{{f_name.first_name}}&nbsp;{{f_name.last_name}}({{f_name.username}})">
+                                            {{f_name.first_name}}&nbsp;{{f_name.last_name}}({{f_name.username}})</option>
+                                      {% endfor %}
+                                </select>
+                          </td>
+                          <td>
+                              <input type="text" name="complainid">
+                          </td>
+                          <td>
+                                <select name="pointt" id="subknow1" class="btn btn-light" style="width:100px">
+                                      <option value="1">1</option>
+                                      <option value="2">2</option>
+                                      <option value="3">3</option>
+                                      <option value="4">4</option>
+                                      <option value="5">5</option>
+                                </select>
+                          </td>
+                          <td>
+                              <input type="text" name="engginfo" style="width:100%;margin:8px 0; border:2px solid red" >
+                          </td>
+                  </tr>
+                </table>
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </div>
+        </form>
+{% endblock  %}
